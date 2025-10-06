@@ -46,26 +46,35 @@ const ICON_LIST: IconItem[] = [
 ];
 
 export default function Home() {
-  const dotsRef = useRef<HTMLSpanElement>(null);
-
   useEffect(() => {
-    if (!dotsRef.current) return;
-    const dots = dotsRef.current.querySelectorAll("span");
-    const tl = gsap.timeline({ repeat: -1 });
+    // Find all dot containers and animate them
+    const dotContainers = document.querySelectorAll(
+      '[aria-hidden="true"][class*="inline-block"]'
+    );
 
-    tl.to(dots, {
-      opacity: 0,
-      duration: 0.3,
-      stagger: 0.2,
-      ease: "power2.inOut",
-    }).to(dots, {
-      opacity: 1,
-      duration: 0.3,
-      stagger: 0.2,
-      ease: "power2.inOut",
+    dotContainers.forEach((container) => {
+      const dots = container.querySelectorAll("span");
+      if (dots.length === 0) return;
+
+      const tl = gsap.timeline({ repeat: -1 });
+
+      tl.to(dots, {
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.2,
+        ease: "power2.inOut",
+      }).to(dots, {
+        opacity: 1,
+        duration: 0.3,
+        stagger: 0.2,
+        ease: "power2.inOut",
+      });
     });
 
-    // (No cleanup needed for infinite loop; add tl.kill() on unmount if you later change repeat)
+    // Cleanup function to kill animations on unmount
+    return () => {
+      gsap.killTweensOf('[aria-hidden="true"][class*="inline-block"] span');
+    };
   }, []);
 
   const getTarget = (href: string) => {
@@ -89,7 +98,7 @@ export default function Home() {
         {/* Building text - hidden on mobile, shown on desktop */}
         <div className="hidden md:block absolute bottom-3 left-3 ml-0 text-raleway text-theme-gray text-sm font-medium px-2 py-1 rounded">
           building
-          <span ref={dotsRef} aria-hidden="true" className="inline-block pl-1">
+          <span aria-hidden="true" className="inline-block pl-1">
             <span>.</span>
             <span>.</span>
             <span>.</span>
@@ -99,7 +108,7 @@ export default function Home() {
         {/* Building text - shown on mobile, positioned just below the SVG at bottom-left */}
         <div className="md:hidden absolute left-0 -bottom-6 text-raleway text-theme-gray text-sm font-medium px-2 py-1 rounded">
           building
-          <span ref={dotsRef} aria-hidden="true" className="inline-block pl-1">
+          <span aria-hidden="true" className="inline-block pl-1">
             <span>.</span>
             <span>.</span>
             <span>.</span>
