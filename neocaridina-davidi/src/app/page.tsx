@@ -35,14 +35,12 @@ const ICON_LIST: IconItem[] = [
     key: "Mail",
     icon: Mail,
     color: "text-theme-gray",
-    size: "w-4 h-4",
     ariaLabel: "send email",
   },
   {
     key: "Phone",
     icon: Phone,
     color: "text-theme-gray",
-    size: "w-4 h-4",
     ariaLabel: "call me",
   },
 ];
@@ -88,7 +86,8 @@ export default function Home() {
           priority
         />
 
-        <div className="absolute bottom-3 right-4 text-raleway text-theme-gray text-sm font-medium px-2 py-1 rounded">
+        {/* Building text - hidden on mobile, shown on desktop */}
+        <div className="hidden md:block absolute bottom-3 left-3 ml-0 text-raleway text-theme-gray text-sm font-medium px-2 py-1 rounded">
           building
           <span ref={dotsRef} aria-hidden="true" className="inline-block pl-1">
             <span>.</span>
@@ -97,7 +96,18 @@ export default function Home() {
           </span>
         </div>
 
-        <div className="absolute bottom-5 left-5 flex flex-row gap-4">
+        {/* Building text - shown on mobile, positioned just below the SVG at bottom-left */}
+        <div className="md:hidden absolute left-0 -bottom-6 text-raleway text-theme-gray text-sm font-medium px-2 py-1 rounded">
+          building
+          <span ref={dotsRef} aria-hidden="true" className="inline-block pl-1">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </span>
+        </div>
+
+        {/* Icons - hidden on mobile, shown on desktop */}
+        <div className="hidden md:flex absolute bottom-5 right-5 flex-row gap-4">
           {ICON_LIST.map(({ key, icon: Icon, color, size, ariaLabel }) => {
             const link = ICON_LINKS[key];
             return (
@@ -132,8 +142,44 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="text-raleway flex justify-center items-center text-4xl text-white">
+      {/* Name */}
+      <div className="text-raleway flex justify-center items-center text-4xl text-white mt-6">
         alan nguyen
+      </div>
+
+      {/* Icons - shown on mobile, hidden on desktop */}
+      <div className="flex md:hidden flex-row gap-3 mt-3">
+        {ICON_LIST.map(({ key, icon: Icon, color, size, ariaLabel }) => {
+          const link = ICON_LINKS[key];
+          return (
+            <div
+              key={key}
+              className={`${color ?? "text-theme-gray"} ${
+                size ?? "w-4 h-4"
+              } hover:scale-110 transition-transform`}
+            >
+              <div className="group flex flex-col items-center">
+                <a
+                  href={link.href}
+                  target={getTarget(link.href)}
+                  rel={
+                    link.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  // Only render download when provided
+                  download={link.download ?? undefined}
+                  aria-label={ariaLabel}
+                >
+                  <Icon className="w-full h-full" />
+                </a>
+                <span className="mt-2 text-raleway text-xs text-theme-gray opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  {ariaLabel}
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
