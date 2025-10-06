@@ -87,10 +87,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="relative">
         <Image
-          src="/aquascape_features.svg"
+          src="/aquascape.png"
           alt=""
-          width={300}
-          height={300}
+          width={1200}
+          height={412}
           className="max-w-6xl w-full h-auto"
           priority
         />
