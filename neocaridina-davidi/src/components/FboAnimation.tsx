@@ -144,7 +144,7 @@ const FboAnimation = () => {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 1.4] }}
+      camera={{ position: [0, 0, 0.5] }}
       style={{
         background: "transparent",
         width: "100%",

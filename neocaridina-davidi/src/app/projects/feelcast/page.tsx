@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import TopNav from "../../components/TopNav";
-import { ChevronLeft, ChevronRight, Github, Linkedin } from "lucide-react";
+import { ChevronLeft, ChevronRight, Github, Trophy } from "lucide-react";
 
 type MediaItem = {
   type: "image" | "video";
@@ -110,6 +110,20 @@ export default function FeelCastPage() {
               An intelligent employee wellness platform that transforms how
               healthcare organizations monitor staff wellbeing.
             </p>
+            {/* Hackathon and Awards */}
+            <div className="flex flex-col gap-2 mt-2">
+              <p className="text-raleway text-sm text-white/80">
+                Dream AI Hackathon by Founder Institute
+              </p>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    Finalist
+                  </p>
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
                 href="https://github.com/alandev05/FeelCast"

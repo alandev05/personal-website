@@ -2,17 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import type { LucideIcon } from "lucide-react";
-import {
-  Linkedin,
-  Github,
-  Mail,
-  Phone,
-  FileUser,
-  Volume2,
-  VolumeX,
-} from "lucide-react";
+import { Linkedin, Github, Mail, Phone, FileUser } from "lucide-react";
 import Aquascape from "./components/Aquascape";
 import NameSection from "./components/NameSection";
+import ProjectsSection from "./components/ProjectsSection";
 
 type IconKey = "Linkedin" | "Github" | "Mail" | "Phone" | "FileUser";
 
@@ -56,8 +49,9 @@ const ICON_LIST: IconItem[] = [
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
   const nameRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const loadingNameRef = useRef<HTMLDivElement>(null);
@@ -175,7 +169,7 @@ export default function Home() {
     audio.autoplay = true;
     audio.muted = false;
     audio.loop = true;
-    audio.volume = 0.3; // Set volume directly, no fade
+    audio.volume = 0.1; // Set volume directly, no fade
     audioRef.current = audio; // Store in ref for cleanup
 
     audio.play().catch(() => console.log("Autoplay blocked"));
@@ -218,10 +212,93 @@ export default function Home() {
     };
   }, [isLoading]);
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted;
-      setIsMuted(audioRef.current.muted);
+  const handleProjectsClick = () => {
+    setShowProjects(true);
+    // Wait for DOM to update, then animate
+    setTimeout(() => {
+      if (nameRef.current && projectsRef.current) {
+        // Set initial position for ProjectsSection
+        gsap.set(projectsRef.current, { x: 1200, opacity: 0 });
+
+        const tl = gsap.timeline();
+        tl.to(nameRef.current, {
+          x: -1200,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        }).to(
+          projectsRef.current,
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          0
+        );
+      }
+    }, 0);
+  };
+
+  const handleProjectsClose = (direction: "left" | "right" = "left") => {
+    if (nameRef.current && projectsRef.current) {
+      if (direction === "left") {
+        // Animate: slide ProjectsSection out to right, NameSection in from left
+        gsap.set(nameRef.current, { x: -1200, opacity: 0 });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setShowProjects(false);
+            if (nameRef.current) {
+              gsap.set(nameRef.current, { x: 0 });
+            }
+          },
+        });
+        tl.to(projectsRef.current, {
+          x: 1200,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        }).to(
+          nameRef.current,
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          0
+        );
+      } else {
+        // Animate: slide ProjectsSection out to left, NameSection in from right
+        gsap.set(nameRef.current, { x: 1200, opacity: 0 });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setShowProjects(false);
+            if (nameRef.current) {
+              gsap.set(nameRef.current, { x: 0 });
+            }
+          },
+        });
+        tl.to(projectsRef.current, {
+          x: -1200,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        }).to(
+          nameRef.current,
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          0
+        );
+      }
+    } else {
+      setShowProjects(false);
     }
   };
 
@@ -251,22 +328,7 @@ export default function Home() {
       {/* Main content - hidden during loading */}
       <div ref={contentRef} className="relative" style={{ opacity: 0 }}>
         <div ref={imageRef}>
-          <Aquascape />
-        </div>
-
-        {/* Volume toggle - top left */}
-        <div className="hidden md:flex absolute top-5 left-5 z-30">
-          <button
-            onClick={toggleMute}
-            className="text-theme-gray w-4 h-4 hover:scale-110 transition-transform cursor-pointer"
-            aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-          >
-            {isMuted ? (
-              <VolumeX className="w-full h-full" />
-            ) : (
-              <Volume2 className="w-full h-full" />
-            )}
-          </button>
+          <Aquascape audioRef={audioRef} />
         </div>
 
         {/* Icons - hidden on mobile, shown on desktop */}
@@ -345,9 +407,22 @@ export default function Home() {
         })}
       </div>
 
-      {/* Name section with buttons */}
-      <div ref={nameRef} className="mt-6" style={{ opacity: 0 }}>
-        <NameSection />
+      {/* Name section and Projects section container */}
+      <div className="mt-6 relative w-[1200px] min-h-[48px] overflow-visible">
+        {/* Name section */}
+        <div ref={nameRef} style={{ opacity: 0 }}>
+          <NameSection onProjectsClick={handleProjectsClick} />
+        </div>
+        {/* Projects section - positioned to the right, hidden initially */}
+        {showProjects && (
+          <div
+            ref={projectsRef}
+            className="absolute top-0 left-0 w-full"
+            style={{ opacity: 0 }}
+          >
+            <ProjectsSection onClose={handleProjectsClose} />
+          </div>
+        )}
       </div>
     </div>
   );

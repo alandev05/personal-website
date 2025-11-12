@@ -106,6 +106,10 @@ export default function PlanningParenthoodPage() {
             <p className="text-raleway text-base leading-relaxed">
               An app to help parents with their personalized journeys.
             </p>
+            {/* Hackathon and Awards */}
+            <div className="flex flex-col gap-2 mt-2">
+              <p className="text-raleway text-sm text-white/80">HackMIT</p>
+            </div>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
                 href="https://github.com/alandev05/PlanningParenthood"

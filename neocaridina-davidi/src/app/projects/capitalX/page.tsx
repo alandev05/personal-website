@@ -8,6 +8,7 @@ import {
   Github,
   ExternalLink,
   Globe,
+  Trophy,
 } from "lucide-react";
 
 type MediaItem = {
@@ -112,6 +113,26 @@ export default function CapitalXPage() {
               An AI-powered mobile platform that maximizes credit card rewards
               through intelligent card optimization.
             </p>
+            {/* Hackathon and Awards */}
+            <div className="flex flex-col gap-2 mt-2">
+              <p className="text-raleway text-sm text-white/80">
+                HackPrinceton Spring 2025
+              </p>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    Best Use of Expo by Expo
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    Best Use of LLMs by General Translation
+                  </p>
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
                 href="https://github.com/ajagtapdev/capitalx"

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import TopNav from "../../components/TopNav";
+import { Trophy } from "lucide-react";
 
 type MediaItem = {
   type: "image" | "video";
@@ -68,9 +69,20 @@ export default function DonorUpliftPage() {
               A machine learning algorithm built to learn what donors to contact
               for maximum operating surplus.
             </p>
-            <p className="text-raleway text-base leading-relaxed">
-              Won SAS Hackathon 2025 (iPad A16)
-            </p>
+            {/* Hackathon and Awards */}
+            <div className="flex flex-col gap-2 mt-2">
+              <p className="text-raleway text-sm text-white/80">
+                SAS Hackathon 2025
+              </p>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    1st Place - Highest Operating Surplus
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

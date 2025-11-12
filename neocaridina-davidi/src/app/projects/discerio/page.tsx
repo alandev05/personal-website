@@ -8,6 +8,7 @@ import {
   Github,
   ExternalLink,
   Globe,
+  Trophy,
 } from "lucide-react";
 
 type MediaItem = {
@@ -117,6 +118,26 @@ export default function DiscerioPage() {
               An interactive platform that teaches agentic AI with guided
               experiential learning and a creative multiplayer game.
             </p>
+            {/* Hackathon and Awards */}
+            <div className="flex flex-col gap-2 mt-2">
+              <p className="text-raleway text-sm text-white/80">
+                HackPrinceton Fall 2025
+              </p>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    Best Use of Dedalus by Dedalus Labs
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-white" />
+                  <p className="text-raleway text-sm font-semibold text-white">
+                    YC x HackPrinceton Challenge by Y Combinator
+                  </p>
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
                 href="https://github.com/RomanSlack/Discerio"
