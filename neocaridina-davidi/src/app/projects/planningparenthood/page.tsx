@@ -14,12 +14,12 @@ type MediaItem = {
 const mediaItems: MediaItem[] = [
   {
     type: "image",
-    src: "/pp1.png",
+    src: "/pp1.PNG",
     alt: "Img1",
   },
   {
     type: "image",
-    src: "/pp2.png",
+    src: "/pp2.PNG",
     alt: "Img2",
   },
 ];
