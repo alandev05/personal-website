@@ -2,14 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import TopNav from "../../components/TopNav";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Github,
-  ExternalLink,
-  Globe,
-  Linkedin,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Github, ExternalLink } from "lucide-react";
 
 type MediaItem = {
   type: "image" | "video";
@@ -159,15 +152,15 @@ export default function PlanningParenthoodPage() {
           {/* Discere text */}
           <p className="text-raleway text-base leading-relaxed mb-4">
             While many education apps focus on directly helping kids learn, we
-            recognize that the largest influence on a child’s growth is their
-            parents. However, many first-time or even multiple-time parents
-            often struggle with how to be an effective parent... and we don't
-            blame them! The demands of children can create time pressures,
-            stress, and uncertainty. That’s why we created Planning Parenthood,
-            an AI-powered parenting planner that transforms your family’s goals,
-            budget, schedule, and location into a personalized activity
-            plan—giving parents clarity, confidence, and actionable ways to
-            nurture their children.
+            recognize that the largest influence on a child&apos;s growth is
+            their parents. However, many first-time or even multiple-time
+            parents often struggle with how to be an effective parent... and we
+            don&apos;t blame them! The demands of children can create time
+            pressures, stress, and uncertainty. That’s why we created Planning
+            Parenthood, an AI-powered parenting planner that transforms your
+            family’s goals, budget, schedule, and location into a personalized
+            activity plan—giving parents clarity, confidence, and actionable
+            ways to nurture their children.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
             Planning Parenthood is a React Native app that provides AI
@@ -181,12 +174,12 @@ export default function PlanningParenthoodPage() {
             cross-platform mobile development, a Flask backend with Firebase for
             data storage, integrated Cerebras AI for conversational parenting
             advice, and implemented a personality quiz system that personalizes
-            recommendations based on each child's unique traits. The
-            recommendations are generated using Anthropic's Claude. The
+            recommendations based on each child&apos;s unique traits. The
+            recommendations are generated using Anthropic&apos;s Claude. The
             extraordinary people search functionality is a Claude powered agent
-            that can interprets the user's search desire and searches the web
-            independently to find people that match the description the user is
-            looking for.
+            that can interprets the user&apos;s search desire and searches the
+            web independently to find people that match the description the user
+            is looking for.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
             We faced difficulties integrating multiple AI services, handling

@@ -2,14 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import TopNav from "../../components/TopNav";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Github,
-  ExternalLink,
-  Globe,
-  Linkedin,
-} from "lucide-react";
 
 type MediaItem = {
   type: "image" | "video";
@@ -31,15 +23,7 @@ const contributors = [
 ];
 
 export default function DonorUpliftPage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? mediaItems.length - 1 : prev - 1));
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev === mediaItems.length - 1 ? 0 : prev + 1));
-  };
+  const [currentIndex] = useState(0);
 
   const currentMedia = mediaItems[currentIndex];
 
@@ -81,12 +65,12 @@ export default function DonorUpliftPage() {
               </div>
             </div>
             <p className="text-raleway text-base leading-relaxed">
-              A machine learning algorithm built to learn what
-              donors to contact for maximum operating surplus.
+              A machine learning algorithm built to learn what donors to contact
+              for maximum operating surplus.
             </p>
             <p className="text-raleway text-base leading-relaxed">
               Won SAS Hackathon 2025 (iPad A16)
-            </p> 
+            </p>
           </div>
         </div>
 
@@ -112,14 +96,16 @@ export default function DonorUpliftPage() {
           </div>
           {/* Discere text */}
           <p className="text-raleway text-base leading-relaxed mb-4">
-            Used Python libraries pandas, scikit‑learn, XGBoost for the modeling core, 
-            a T‑Learner uplift design for causal effect estimation, and a profit optimization 
-            layer to turn lift into a ranked contact policy that maximizes surplus. 
-            The preprocessing was powered by a ColumnTransformer (one‑hot Education/Woman, numeric passthrough),
-            linked to calibrated per‑arm XGBoost classifiers with class‑imbalance weighting and early stopping for stability. 
+            Used Python libraries pandas, scikit‑learn, XGBoost for the modeling
+            core, a T‑Learner uplift design for causal effect estimation, and a
+            profit optimization layer to turn lift into a ranked contact policy
+            that maximizes surplus. The preprocessing was powered by a
+            ColumnTransformer (one‑hot Education/Woman, numeric passthrough),
+            linked to calibrated per‑arm XGBoost classifiers with
+            class‑imbalance weighting and early stopping for stability.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-              Can't release code until winner officially announced
+            Can&apos;t release code until winner officially announced
           </p>
           {/* <p className="text-raleway text-base leading-relaxed">
             Additional paragraphs can be added here to provide even more context

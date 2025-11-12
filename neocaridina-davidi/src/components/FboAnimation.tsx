@@ -1,6 +1,6 @@
 "use client";
 import { Canvas, useFrame, extend, createPortal } from "@react-three/fiber";
-import { useMemo, useRef, useState, useEffect, type ReactNode } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 import SimulationMaterial from "../animations/fbo/SimulationMaterial";
@@ -18,10 +18,22 @@ const FBOParticles = () => {
   const simulationMaterialRef = useRef<SimulationMaterial>(null!);
 
   const scene = useMemo(() => new THREE.Scene(), []);
-  const camera = useMemo(() => new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1), []);
-  
-  const positions = useMemo(() => new Float32Array([-1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0]), []);
-  const uvs = useMemo(() => new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]), []);
+  const camera = useMemo(
+    () => new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1),
+    []
+  );
+
+  const positions = useMemo(
+    () =>
+      new Float32Array([
+        -1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0,
+      ]),
+    []
+  );
+  const uvs = useMemo(
+    () => new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]),
+    []
+  );
 
   const renderTarget = useMemo(() => {
     return new THREE.WebGLRenderTarget(size, size, {
@@ -67,7 +79,9 @@ const FBOParticles = () => {
     gl.setRenderTarget(null);
 
     if (points.current) {
-      (points.current.material as THREE.ShaderMaterial).uniforms.uPositions.value = renderTarget.texture;
+      (
+        points.current.material as THREE.ShaderMaterial
+      ).uniforms.uPositions.value = renderTarget.texture;
     }
   });
 
@@ -131,21 +145,20 @@ const FboAnimation = () => {
   return (
     <Canvas
       camera={{ position: [0, 0, 1.4] }}
-      style={{ 
-        background: "transparent", 
+      style={{
+        background: "transparent",
         width: "100%",
         height: "100%",
         display: "block",
-        pointerEvents: "none"
+        pointerEvents: "none",
       }}
       dpr={[1, 2]} // Set device pixel ratio to a max of 2 for performance
       gl={{ antialias: false, alpha: true }}
     >
       <ambientLight intensity={0.2} />
-        <FBOParticles />
+      <FBOParticles />
     </Canvas>
   );
 };
 
 export default FboAnimation;
-

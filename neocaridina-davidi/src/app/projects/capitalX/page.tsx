@@ -8,7 +8,6 @@ import {
   Github,
   ExternalLink,
   Globe,
-  Linkedin,
 } from "lucide-react";
 
 type MediaItem = {
@@ -110,8 +109,8 @@ export default function CapitalXPage() {
               <div className="text-raleway text-2xl font-bold">capitalX</div>
             </div>
             <p className="text-raleway text-base leading-relaxed">
-              An AI-powered mobile platform that maximizes credit card 
-              rewards through intelligent card optimization.
+              An AI-powered mobile platform that maximizes credit card rewards
+              through intelligent card optimization.
             </p>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
@@ -167,31 +166,32 @@ export default function CapitalXPage() {
           </div>
           {/* Discere text */}
           <p className="text-raleway text-base leading-relaxed mb-4">
-            Credit card optimization is tedious. Many people juggle multiple cards 
-            but have no systematic way to maximize rewards, cashback, and benefits 
-            for each purchase. They're left manually comparing cards, missing out on 
-            optimal rewards, and making suboptimal financial decisions. But what if there
-            was an easy way?
+            Credit card optimization is tedious. Many people juggle multiple
+            cards but have no systematic way to maximize rewards, cashback, and
+            benefits for each purchase. They&apos;re left manually comparing
+            cards, missing out on optimal rewards, and making suboptimal
+            financial decisions. But what if there was an easy way?
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            So we built CapitalX, its an AI-driven mobile platform that intelligently 
-            optimizes every credit card transaction. It
-            scans your cards, analyzes their benefits, and automatically recommends the best 
-            card for every purchase. 
-            Instead of manually comparing rewards or guessing which card to use, simply 
-            take a photo of your card which is stored securely in our app, then shop normally. You can 
-            let our fine-tuned Gemma-27B model
-            ensure every swipe maximizes your 
+            So we built CapitalX, its an AI-driven mobile platform that
+            intelligently optimizes every credit card transaction. It scans your
+            cards, analyzes their benefits, and automatically recommends the
+            best card for every purchase. Instead of manually comparing rewards
+            or guessing which card to use, simply take a photo of your card
+            which is stored securely in our app, then shop normally. You can let
+            our fine-tuned Gemma-27B model ensure every swipe maximizes your
             financial returns.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            To build this, we combined React Native and Expo for a seamless cross-platform mobile 
-            experience, Flask for a robust Python backend, and Google's Gemini AI models 
-            (Gemini 1.5 Flash, Gemini 2.0 Flash with Google Search) 
-            to power intelligent card identification and recommendation. The vision capabilities 
-            leverage Google Cloud Vision API for secure card scanning and digitization. We also integrated 
-            Supabase for secure user authentication and card storage, Knot TransactionLink API 
-            for seamless payment processing, and deployed our backend services on Render.
+            To build this, we combined React Native and Expo for a seamless
+            cross-platform mobile experience, Flask for a robust Python backend,
+            and Google&apos;s Gemini AI models (Gemini 1.5 Flash, Gemini 2.0
+            Flash with Google Search) to power intelligent card identification
+            and recommendation. The vision capabilities leverage Google Cloud
+            Vision API for secure card scanning and digitization. We also
+            integrated Supabase for secure user authentication and card storage,
+            Knot TransactionLink API for seamless payment processing, and
+            deployed our backend services on Render.
           </p>
           {/* <p className="text-raleway text-base leading-relaxed">
             Additional paragraphs can be added here to provide even more context

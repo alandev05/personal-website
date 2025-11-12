@@ -8,7 +8,6 @@ import {
   Github,
   ExternalLink,
   Globe,
-  Linkedin,
 } from "lucide-react";
 
 type MediaItem = {
@@ -111,7 +110,7 @@ export default function DiscerioPage() {
                 Discer.io -{" "}
               </div>
               <p className="text-raleway text-base leading-relaxed">
-                "It's like Scratch, but for AI agents"
+                &quot;It&apos;s like Scratch, but for AI agents&quot;
               </p>
             </div>
             <p className="text-raleway text-base leading-relaxed">
@@ -172,7 +171,7 @@ export default function DiscerioPage() {
           </div>
           {/* Discere text */}
           <p className="text-raleway text-base leading-relaxed mb-4">
-            "Discere" - to learn.
+            &quot;Discere&quot; - to learn.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
             Agentic AI literacy is broken. Most people have heard of agents but
@@ -183,14 +182,14 @@ export default function DiscerioPage() {
             beginners overwhelmed and disengaged.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            That's why we built Discer.io, an educational MMO sandbox that lets
-            players design, orchestrate, and deploy agentic AI workflows using
-            drag-and-drop programming blocks and prompt-based commands. Think
-            Scratch, but for agentic AI systems. It turns abstract AI workflows
-            into tangible, interactive experiences. So Instead of just reading
-            about agents or watching demos, you’ll build your own, connect
-            tools, set reasoning steps, and see the workflow come alive — all
-            without writing a single line of code.
+            That&apos;s why we built Discer.io, an educational MMO sandbox that
+            lets players design, orchestrate, and deploy agentic AI workflows
+            using drag-and-drop programming blocks and prompt-based commands.
+            Think Scratch, but for agentic AI systems. It turns abstract AI
+            workflows into tangible, interactive experiences. So Instead of just
+            reading about agents or watching demos, you’ll build your own,
+            connect tools, set reasoning steps, and see the workflow come alive
+            — all without writing a single line of code.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
             We combined Next.js for the frontend, Python for the backend, and a

@@ -2,14 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import TopNav from "../../components/TopNav";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Github,
-  ExternalLink,
-  Globe,
-  Linkedin,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Github, Linkedin } from "lucide-react";
 
 type MediaItem = {
   type: "image" | "video";
@@ -111,14 +104,11 @@ export default function FeelCastPage() {
           {/* Text on the right */}
           <div className="w-full md:w-1/2 flex flex-col gap-4 justify-center">
             <div className="flex items-baseline gap-2">
-              <div className="text-raleway text-2xl font-bold">
-                FeelCast
-              </div>
+              <div className="text-raleway text-2xl font-bold">FeelCast</div>
             </div>
             <p className="text-raleway text-base leading-relaxed">
-              An intelligent employee wellness platform 
-              that transforms how healthcare organizations 
-              monitor staff wellbeing.
+              An intelligent employee wellness platform that transforms how
+              healthcare organizations monitor staff wellbeing.
             </p>
             <div className="flex flex-wrap gap-2 mt-2">
               <a
@@ -156,21 +146,24 @@ export default function FeelCastPage() {
           </div>
           {/* Discere text */}
           <p className="text-raleway text-base leading-relaxed mb-4">
-            "Discere" - to learn.
+            &quot;Discere&quot; - to learn.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            Healthcare organizations struggle to identify burnout and stress before it's too late. 
-            Traditional surveys are time-consuming, lack real-time insights, and fail to capture 
-            the emotional nuances that indicate early warning signs. Managers are left reacting to 
-            crises rather than preventing them, and employees feel their wellbeing concerns go unnoticed 
-            until they reach a breaking point.
+            Healthcare organizations struggle to identify burnout and stress
+            before it&apos;s too late. Traditional surveys are time-consuming,
+            lack real-time insights, and fail to capture the emotional nuances
+            that indicate early warning signs. Managers are left reacting to
+            crises rather than preventing them, and employees feel their
+            wellbeing concerns go unnoticed until they reach a breaking point.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            FeelCast is a proactive wellness check-in system that uses sentiment analysis, video assessments, and 
-            predictive analytics to identify burnout risks weeks in advance. Instead of waiting for 
-            problems to escalate, managers get real-time insights, trend analysis, and personalized 
-            recommendations like smart shift optimizations. Employees earn points for engagement 
-            through our gamified system that makes wellness tracking feel rewarding rather than burdensome.
+            FeelCast is a proactive wellness check-in system that uses sentiment
+            analysis, video assessments, and predictive analytics to identify
+            burnout risks weeks in advance. Instead of waiting for problems to
+            escalate, managers get real-time insights, trend analysis, and
+            personalized recommendations like smart shift optimizations.
+            Employees earn points for engagement through our gamified system
+            that makes wellness tracking feel rewarding rather than burdensome.
           </p>
           {/* <p className="text-raleway text-base leading-relaxed">
             Additional paragraphs can be added here to provide even more context
