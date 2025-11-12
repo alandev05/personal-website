@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 
 export default function ResumePage() {
   const [isMobile, setIsMobile] = useState(false);
+  const [embedHeight, setEmbedHeight] = useState(700);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setEmbedHeight(
+        mobile ? window.innerHeight - 80 : window.innerHeight - 100
+      );
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -15,7 +20,6 @@ export default function ResumePage() {
   }, []);
 
   const zoomLevel = isMobile ? 45 : 75;
-  const heightOffset = isMobile ? 80 : 100;
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
@@ -23,16 +27,13 @@ export default function ResumePage() {
 
       {/* PDF Viewer */}
       <div className="flex-1 w-full px-2 sm:px-4 pb-2 sm:pb-4 flex items-center justify-center">
-        <div className="w-full max-w-[1200px] h-full">
-          <iframe
+        <div className="w-full max-w-[1200px]">
+          <embed
             key={isMobile ? "mobile" : "desktop"}
-            src={`/files/alan_nguyen_resume.pdf#view=FitH&zoom=${zoomLevel}`}
-            className="w-full h-full border-0"
-            title="Alan Nguyen Resume"
-            style={{
-              minHeight: `calc(100vh - ${heightOffset}px)`,
-              height: `calc(100vh - ${heightOffset}px)`,
-            }}
+            src={`/files/alan_nguyen_resume.pdf#zoom=${zoomLevel}`}
+            type="application/pdf"
+            width="100%"
+            height={embedHeight}
           />
         </div>
       </div>
