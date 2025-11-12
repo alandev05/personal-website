@@ -1,9 +1,14 @@
 "use client";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
 
 type ProjectsSectionProps = {
-  onClose: (direction?: "left" | "right") => void;
+  onClose: (direction?: "left" | "right" | "up" | "down") => void;
 };
 
 export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
@@ -37,24 +42,34 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
   ];
 
   return (
-    <div className="w-[1200px] flex items-center justify-between relative">
+    <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center justify-between relative px-4 min-h-[200px] md:min-h-0">
+      {/* Mobile: Chevron Up */}
+      <button
+        onClick={() => onClose("up")}
+        className="md:hidden absolute top-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        aria-label="Close projects"
+      >
+        <ChevronUp className="w-5 h-5" />
+      </button>
+      {/* Desktop: Chevron Left */}
       <button
         onClick={() => onClose("left")}
-        className="absolute left-0 text-white hover:opacity-80 transition-opacity cursor-pointer"
+        className="hidden md:flex absolute left-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
         aria-label="Close projects"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
-      <div className="flex items-center justify-evenly flex-1">
+
+      <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly flex-1 gap-4 md:gap-0 overflow-y-auto md:overflow-x-auto py-8 md:py-0 max-h-[70vh] md:max-h-none">
         {projects.map((project) => {
-          let textSize = "text-3xl"; // Default: feelcast, pparent
+          let textSize = "text-base sm:text-xl md:text-3xl"; // Default: feelcast, pparent
           if (project.name === "discer.io") {
-            textSize = "text-4xl"; // Largest
+            textSize = "text-lg sm:text-2xl md:text-4xl"; // Largest
           } else if (
             project.name === "capitalx" ||
             project.name === "donor-uplift"
           ) {
-            textSize = "text-[2rem]"; // Medium (between 3xl and 4xl)
+            textSize = "text-base sm:text-xl md:text-[2rem]"; // Medium (between 3xl and 4xl)
           }
 
           return (
@@ -64,8 +79,12 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
             >
               <Link
                 href={project.path}
-                className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer`}
-                onClick={() => onClose("left")}
+                className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap`}
+                onClick={(e) => {
+                  const isMobile =
+                    typeof window !== "undefined" && window.innerWidth < 768;
+                  onClose(isMobile ? "up" : "left");
+                }}
               >
                 {project.name}
               </Link>
@@ -81,9 +100,19 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
           );
         })}
       </div>
+
+      {/* Mobile: Chevron Down */}
+      <button
+        onClick={() => onClose("down")}
+        className="md:hidden absolute bottom-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        aria-label="Close projects"
+      >
+        <ChevronDown className="w-5 h-5" />
+      </button>
+      {/* Desktop: Chevron Right */}
       <button
         onClick={() => onClose("right")}
-        className="absolute right-0 text-white hover:opacity-80 transition-opacity cursor-pointer"
+        className="hidden md:flex absolute right-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
         aria-label="Close projects"
       >
         <ChevronRight className="w-6 h-6" />

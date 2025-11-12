@@ -217,85 +217,206 @@ export default function Home() {
     // Wait for DOM to update, then animate
     setTimeout(() => {
       if (nameRef.current && projectsRef.current) {
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const slideDistance = isMobile 
+          ? 150 // Small distance on mobile - text disappears before reaching icons
+          : (typeof window !== 'undefined' ? window.innerWidth : 1200);
+        
         // Set initial position for ProjectsSection
-        gsap.set(projectsRef.current, { x: 1200, opacity: 0 });
+        if (isMobile) {
+          gsap.set(projectsRef.current, { y: slideDistance, opacity: 0 });
+        } else {
+          gsap.set(projectsRef.current, { x: slideDistance, opacity: 0 });
+        }
 
         const tl = gsap.timeline();
-        tl.to(nameRef.current, {
-          x: -1200,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        }).to(
-          projectsRef.current,
-          {
-            x: 0,
-            opacity: 1,
+        if (isMobile) {
+          // Slide name section up - fades out quickly to prevent overlap with icons
+          tl.to(nameRef.current, {
+            y: -slideDistance,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.in",
+            onUpdate: function() {
+              // Ensure opacity reaches 0 before text moves too far
+              const progress = this.progress();
+              if (progress > 0.5 && nameRef.current) {
+                gsap.set(nameRef.current, { opacity: 0 });
+              }
+            }
+          }).to(
+            projectsRef.current,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            "-=0.3"
+          );
+        } else {
+          tl.to(nameRef.current, {
+            x: -slideDistance,
+            opacity: 0,
             duration: 0.5,
             ease: "power2.inOut",
-          },
-          0
-        );
+          }).to(
+            projectsRef.current,
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            0
+          );
+        }
       }
     }, 0);
   };
 
-  const handleProjectsClose = (direction: "left" | "right" = "left") => {
+  const handleProjectsClose = (direction: "left" | "right" | "up" | "down" = "left") => {
     if (nameRef.current && projectsRef.current) {
-      if (direction === "left") {
-        // Animate: slide ProjectsSection out to right, NameSection in from left
-        gsap.set(nameRef.current, { x: -1200, opacity: 0 });
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const slideDistance = isMobile 
+        ? (typeof window !== 'undefined' ? window.innerHeight : 800)
+        : (typeof window !== 'undefined' ? window.innerWidth : 1200);
+      
+      if (isMobile) {
+        // Mobile: vertical animations with reduced distance
+        const mobileSlideDistance = 150; // Small distance - text disappears before reaching icons
+        // Map left/right to up/down for mobile
+        const mobileDirection = direction === "left" || direction === "right" 
+          ? (direction === "left" ? "up" : "down")
+          : direction;
+        
+        if (mobileDirection === "up") {
+          // Animate: slide ProjectsSection down, NameSection slides up (fades quickly to prevent overlap)
+          gsap.set(nameRef.current, { y: -mobileSlideDistance, opacity: 0 });
 
-        const tl = gsap.timeline({
-          onComplete: () => {
-            setShowProjects(false);
-            if (nameRef.current) {
-              gsap.set(nameRef.current, { x: 0 });
+          const tl = gsap.timeline({
+            onComplete: () => {
+              setShowProjects(false);
+              if (nameRef.current) {
+                gsap.set(nameRef.current, { y: 0 });
+              }
+            },
+          });
+          tl.to(projectsRef.current, {
+            y: mobileSlideDistance,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.in",
+            onUpdate: function() {
+              // Ensure opacity reaches 0 before text moves too far
+              const progress = this.progress();
+              if (progress > 0.5 && projectsRef.current) {
+                gsap.set(projectsRef.current, { opacity: 0 });
+              }
             }
-          },
-        });
-        tl.to(projectsRef.current, {
-          x: 1200,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        }).to(
-          nameRef.current,
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.inOut",
-          },
-          0
-        );
+          }).to(
+            nameRef.current,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            "-=0.3"
+          );
+        } else if (mobileDirection === "down") {
+          // Animate: slide ProjectsSection up (fades quickly to prevent overlap), NameSection slides in from bottom
+          gsap.set(nameRef.current, { y: mobileSlideDistance, opacity: 0 });
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              setShowProjects(false);
+              if (nameRef.current) {
+                gsap.set(nameRef.current, { y: 0 });
+              }
+            },
+          });
+          tl.to(projectsRef.current, {
+            y: -mobileSlideDistance,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.in",
+            onUpdate: function() {
+              // Ensure opacity reaches 0 before text moves too far
+              const progress = this.progress();
+              if (progress > 0.5 && projectsRef.current) {
+                gsap.set(projectsRef.current, { opacity: 0 });
+              }
+            }
+          }).to(
+            nameRef.current,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            "-=0.3"
+          );
+        }
       } else {
-        // Animate: slide ProjectsSection out to left, NameSection in from right
-        gsap.set(nameRef.current, { x: 1200, opacity: 0 });
+        // Desktop: horizontal animations
+        if (direction === "left") {
+          // Animate: slide ProjectsSection out to right, NameSection in from left
+          gsap.set(nameRef.current, { x: -slideDistance, opacity: 0 });
 
-        const tl = gsap.timeline({
-          onComplete: () => {
-            setShowProjects(false);
-            if (nameRef.current) {
-              gsap.set(nameRef.current, { x: 0 });
-            }
-          },
-        });
-        tl.to(projectsRef.current, {
-          x: -1200,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        }).to(
-          nameRef.current,
-          {
-            x: 0,
-            opacity: 1,
+          const tl = gsap.timeline({
+            onComplete: () => {
+              setShowProjects(false);
+              if (nameRef.current) {
+                gsap.set(nameRef.current, { x: 0 });
+              }
+            },
+          });
+          tl.to(projectsRef.current, {
+            x: slideDistance,
+            opacity: 0,
             duration: 0.5,
             ease: "power2.inOut",
-          },
-          0
-        );
+          }).to(
+            nameRef.current,
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            0
+          );
+        } else {
+          // direction === "right"
+          // Animate: slide ProjectsSection out to left, NameSection in from right
+          gsap.set(nameRef.current, { x: slideDistance, opacity: 0 });
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              setShowProjects(false);
+              if (nameRef.current) {
+                gsap.set(nameRef.current, { x: 0 });
+              }
+            },
+          });
+          tl.to(projectsRef.current, {
+            x: -slideDistance,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.inOut",
+          }).to(
+            nameRef.current,
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            0
+          );
+        }
       }
     } else {
       setShowProjects(false);
@@ -318,7 +439,7 @@ export default function Home() {
         >
           <div
             ref={loadingNameRef}
-            className="text-raleway text-4xl text-white hover:opacity-80 transition-opacity"
+            className="text-raleway text-2xl sm:text-3xl md:text-4xl text-white hover:opacity-80 transition-opacity px-4"
           >
             alan nguyen
           </div>
@@ -326,45 +447,14 @@ export default function Home() {
       )}
 
       {/* Main content - hidden during loading */}
-      <div ref={contentRef} className="relative" style={{ opacity: 0 }}>
-        <div ref={imageRef}>
-          <Aquascape audioRef={audioRef} />
-        </div>
-
-        {/* Icons - hidden on mobile, shown on desktop */}
-        <div className="hidden md:flex absolute bottom-5 right-5 flex-row gap-4 z-30">
-          {ICON_LIST.map(({ key, icon: Icon, color, size, ariaLabel }) => {
-            const link = ICON_LINKS[key];
-            return (
-              <div
-                key={key}
-                className={`${color ?? "text-theme-gray"} ${
-                  size ?? "w-4 h-4"
-                } hover:scale-110 transition-transform relative z-30`}
-              >
-                <div className="group flex flex-col items-center">
-                  <a
-                    href={link.href}
-                    target={getTarget(link.href)}
-                    rel={
-                      link.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    // Only render download when provided
-                    download={link.download ?? undefined}
-                    aria-label={ariaLabel}
-                    className="relative z-30 pointer-events-auto"
-                  >
-                    <Icon className="w-full h-full" />
-                  </a>
-                  <span className="mt-4 text-raleway text-xs text-theme-gray opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {ariaLabel}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+      <div ref={contentRef} className="relative w-full px-4" style={{ opacity: 0 }}>
+        <div ref={imageRef} className="w-full">
+          <Aquascape 
+            audioRef={audioRef} 
+            iconList={ICON_LIST}
+            iconLinks={ICON_LINKS}
+            getTarget={getTarget}
+          />
         </div>
       </div>
 
@@ -408,7 +498,7 @@ export default function Home() {
       </div>
 
       {/* Name section and Projects section container */}
-      <div className="mt-6 relative w-[1200px] min-h-[48px] overflow-visible">
+      <div className="mt-4 sm:mt-6 relative w-full max-w-[1200px] min-h-[48px] overflow-hidden md:overflow-visible px-4">
         {/* Name section */}
         <div ref={nameRef} style={{ opacity: 0 }}>
           <NameSection onProjectsClick={handleProjectsClick} />
