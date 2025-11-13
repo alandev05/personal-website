@@ -14,9 +14,10 @@ type ProjectsSectionProps = {
 export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
   const projects = [
     {
-      name: "feelcast",
-      path: "/projects/feelcast",
-      awards: "Finalist - Dream AI Hackathon by Founder Institute",
+      name: "discer.io",
+      path: "/projects/discerio",
+      awards:
+        "Best Use of Dedalus, YC x HackPrinceton Challenge - HackPrinceton Fall 2025",
     },
     {
       name: "capitalx",
@@ -24,15 +25,14 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
       awards: "Best Use of Expo, Best Use of LLMs - HackPrinceton Spring 2025",
     },
     {
-      name: "discer.io",
-      path: "/projects/discerio",
-      awards:
-        "Best Use of Dedalus, YC x HackPrinceton Challenge - HackPrinceton Fall 2025",
-    },
-    {
       name: "donor-uplift",
       path: "/projects/donor-uplift",
       awards: "1st Place - Highest Operating Surplus - SAS Hackathon 2025",
+    },
+    {
+      name: "feelcast",
+      path: "/projects/feelcast",
+      awards: "Finalist - Dream AI Hackathon by Founder Institute",
     },
     {
       name: "pparent",
@@ -42,11 +42,11 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
   ];
 
   return (
-    <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center justify-between relative px-4 min-h-[200px] md:min-h-0">
+    <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center justify-between relative px-4 min-h-[200px] md:min-h-0 z-50">
       {/* Mobile: Chevron Up */}
       <button
         onClick={() => onClose("up")}
-        className="md:hidden absolute top-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        className="md:hidden absolute top-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-[60]"
         aria-label="Close projects"
       >
         <ChevronUp className="w-5 h-5" />
@@ -54,7 +54,7 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
       {/* Desktop: Chevron Left */}
       <button
         onClick={() => onClose("left")}
-        className="hidden md:flex absolute left-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        className="hidden md:flex absolute left-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-[60]"
         aria-label="Close projects"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -62,24 +62,25 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
 
       <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly flex-1 gap-4 md:gap-0 overflow-y-auto md:overflow-x-auto py-8 md:py-0 max-h-[70vh] md:max-h-none">
         {projects.map((project) => {
-          let textSize = "text-base sm:text-xl md:text-3xl"; // Default: feelcast, pparent
+          // All projects same size on mobile, different on desktop
+          let textSize = "text-base md:text-3xl"; // Default: feelcast, pparent
           if (project.name === "discer.io") {
-            textSize = "text-lg sm:text-2xl md:text-4xl"; // Largest
+            textSize = "text-base md:text-4xl"; // Largest on desktop
           } else if (
             project.name === "capitalx" ||
             project.name === "donor-uplift"
           ) {
-            textSize = "text-base sm:text-xl md:text-[2rem]"; // Medium (between 3xl and 4xl)
+            textSize = "text-base md:text-[2rem]"; // Medium on desktop
           }
 
           return (
             <div
               key={project.name}
-              className="group relative flex flex-col items-center"
+              className="group relative flex flex-col items-center z-50"
             >
               <Link
                 href={project.path}
-                className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap`}
+                className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap relative z-50`}
                 onClick={(e) => {
                   const isMobile =
                     typeof window !== "undefined" && window.innerWidth < 768;
@@ -104,7 +105,7 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
       {/* Mobile: Chevron Down */}
       <button
         onClick={() => onClose("down")}
-        className="md:hidden absolute bottom-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        className="md:hidden absolute bottom-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-[60]"
         aria-label="Close projects"
       >
         <ChevronDown className="w-5 h-5" />
@@ -112,7 +113,7 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
       {/* Desktop: Chevron Right */}
       <button
         onClick={() => onClose("right")}
-        className="hidden md:flex absolute right-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-10"
+        className="hidden md:flex absolute right-0 text-white hover:opacity-80 transition-opacity cursor-pointer z-[60]"
         aria-label="Close projects"
       >
         <ChevronRight className="w-6 h-6" />

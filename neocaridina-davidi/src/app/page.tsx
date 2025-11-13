@@ -498,7 +498,7 @@ export default function Home() {
       </div>
 
       {/* Name section and Projects section container */}
-      <div className="mt-4 sm:mt-6 relative w-full max-w-[1200px] min-h-[48px] overflow-hidden md:overflow-visible px-4">
+      <div className="mt-4 sm:mt-6 relative w-full max-w-[1200px] min-h-[48px] overflow-visible px-4">
         {/* Name section */}
         <div ref={nameRef} style={{ opacity: 0 }}>
           <NameSection onProjectsClick={handleProjectsClick} />
@@ -507,7 +507,7 @@ export default function Home() {
         {showProjects && (
           <div
             ref={projectsRef}
-            className="absolute top-0 left-0 w-full"
+            className="absolute top-0 left-0 w-full z-50"
             style={{ opacity: 0 }}
           >
             <ProjectsSection onClose={handleProjectsClose} />
