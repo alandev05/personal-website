@@ -153,7 +153,7 @@ export default function ExperienceTimeline() {
                 {/* Date */}
                 <div
                   className={`absolute left-1/2 transform -translate-x-1/2 ${
-                    isLeft ? "translate-x-12" : "-translate-x-12"
+                    isLeft ? "translate-x-20" : "-translate-x-60"
                   } text-raleway text-sm text-white/80 whitespace-nowrap`}
                 >
                   {item.date}
