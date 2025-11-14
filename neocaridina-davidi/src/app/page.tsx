@@ -7,6 +7,8 @@ import Aquascape from "./components/Aquascape";
 import NameSection from "./components/NameSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ExperienceTimeline from "./components/ExperienceTimeline";
+import ProjectOverlay from "./components/ProjectOverlay";
+import { PROJECT_DATA } from "./data/projects";
 
 type IconKey = "Linkedin" | "Github" | "Mail" | "Phone" | "FileUser";
 
@@ -52,6 +54,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showProjects, setShowProjects] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -59,6 +62,7 @@ export default function Home() {
   const loadingNameRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
+  const experienceTimelineRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingClick = () => {
     // Disable pointer events immediately to prevent blocking clicks
@@ -438,6 +442,74 @@ export default function Home() {
     }
   };
 
+  const handleExperienceClose = () => {
+    if (experienceTimelineRef.current) {
+      // Find all timeline items (the content boxes)
+      const timelineItems = experienceTimelineRef.current.querySelectorAll(
+        '[data-timeline-container] [class*="relative flex items-center"]'
+      );
+      const lineElement = experienceTimelineRef.current.querySelector(
+        '[data-timeline-container] [class*="absolute top-0 left-0 w-full bg-white"]'
+      );
+      // Find all timeline nodes (circle icons)
+      const timelineNodes = experienceTimelineRef.current.querySelectorAll(
+        '[data-timeline-container] [class*="absolute left-1/2 transform -translate-x-1/2 z-10"]'
+      );
+
+      // Animate items closing in reverse (fade out and slide back)
+      const itemsArray = Array.from(timelineItems);
+      const nodesArray = Array.from(timelineNodes);
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setShowExperience(false);
+        },
+      });
+
+      // Fade out nodes first (in reverse order)
+      nodesArray.reverse().forEach((node, index) => {
+        tl.to(
+          node,
+          {
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          index * 0.1
+        );
+      });
+
+      // Animate line shrinking
+      if (lineElement) {
+        tl.to(
+          lineElement,
+          {
+            height: "0%",
+            duration: 0.5,
+            ease: "power2.in",
+          },
+          "-=0.2"
+        );
+      }
+
+      // Animate items closing in reverse order (bottom to top)
+      itemsArray.reverse().forEach((item, index) => {
+        const isEven = (itemsArray.length - 1 - index) % 2 === 0;
+        tl.to(
+          item,
+          {
+            opacity: 0,
+            x: isEven ? -50 : 50,
+            duration: 0.4,
+            ease: "power2.in",
+          },
+          index === 0 ? "-=0.3" : "-=0.2"
+        );
+      });
+    } else {
+      setShowExperience(false);
+    }
+  };
+
   const getTarget = (href: string) => {
     // External links -> open new tab. Mail/tel/internal -> same tab.
     if (href.startsWith("http")) return "_blank";
@@ -525,7 +597,12 @@ export default function Home() {
             <NameSection
               onProjectsClick={handleProjectsClick}
               onExperienceClick={() => {
-                setShowExperience(true);
+                if (showExperience) {
+                  // Close experience with reverse animation
+                  handleExperienceClose();
+                } else {
+                  setShowExperience(true);
+                }
               }}
             />
           </div>
@@ -536,7 +613,12 @@ export default function Home() {
               className="absolute top-0 left-0 w-full z-50"
               style={{ opacity: 0 }}
             >
-              <ProjectsSection onClose={handleProjectsClose} />
+              <ProjectsSection
+                onClose={handleProjectsClose}
+                onProjectClick={(projectName) => {
+                  setSelectedProject(projectName);
+                }}
+              />
             </div>
           )}
         </div>
@@ -545,9 +627,23 @@ export default function Home() {
       {/* Experience Timeline - appears below, requires scrolling */}
       {showExperience && (
         <div ref={experienceRef} className="w-full -mt-50">
-          <ExperienceTimeline />
+          <div ref={experienceTimelineRef}>
+            <ExperienceTimeline />
+          </div>
         </div>
       )}
+
+      {/* Project Overlay */}
+      <ProjectOverlay
+        project={
+          selectedProject
+            ? PROJECT_DATA[selectedProject] ||
+              PROJECT_DATA[selectedProject.toLowerCase()] ||
+              null
+            : null
+        }
+        onClose={() => setSelectedProject(null)}
+      />
     </>
   );
 }

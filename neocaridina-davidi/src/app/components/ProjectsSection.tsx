@@ -9,9 +9,13 @@ import {
 
 type ProjectsSectionProps = {
   onClose: (direction?: "left" | "right" | "up" | "down") => void;
+  onProjectClick?: (projectName: string) => void;
 };
 
-export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
+export default function ProjectsSection({
+  onClose,
+  onProjectClick,
+}: ProjectsSectionProps) {
   const projects = [
     {
       name: "discer.io",
@@ -78,17 +82,29 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
               key={project.name}
               className="group relative flex flex-col items-center z-50"
             >
-              <Link
-                href={project.path}
-                className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap relative z-50`}
-                onClick={() => {
-                  const isMobile =
-                    typeof window !== "undefined" && window.innerWidth < 768;
-                  onClose(isMobile ? "up" : "left");
-                }}
-              >
-                {project.name}
-              </Link>
+              {onProjectClick ? (
+                <button
+                  onClick={() => {
+                    onProjectClick(project.name);
+                    // Don't close the projects section when clicking a project
+                  }}
+                  className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap relative z-50`}
+                >
+                  {project.name}
+                </button>
+              ) : (
+                <Link
+                  href={project.path}
+                  className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap relative z-50`}
+                  onClick={() => {
+                    const isMobile =
+                      typeof window !== "undefined" && window.innerWidth < 768;
+                    onClose(isMobile ? "up" : "left");
+                  }}
+                >
+                  {project.name}
+                </Link>
+              )}
               {/* Awards text - appears below on hover */}
               {project.awards && (
                 <div className="absolute top-full mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">

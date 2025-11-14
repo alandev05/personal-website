@@ -30,7 +30,7 @@ const timelineItems: TimelineItem[] = [
     id: "2",
     type: "experience",
     title: "Software Developer Intern",
-    location: "Peer Global Inc., Dover, DE",
+    location: "Peer Global Inc, Dover, DE",
     date: "June 2025 - August 2025",
     description: [
       "Architected internal AI testing platform with React, Flask, and MongoDB, featuring 3-tier, multi-persona, modular real-time conversation model for app with over 1.2 million users.",
@@ -52,27 +52,19 @@ export default function ExperienceTimeline() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!timelineRef.current || !lineRef.current) return;
 
     // Animate timeline line growth
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            gsap.to(lineRef.current, {
-              height: "100%",
-              duration: 1.5,
-              ease: "power2.out",
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(timelineRef.current);
+    const tl = gsap.timeline();
+    // Animate line growth
+    tl.to(lineRef.current, {
+      height: "100%",
+      duration: 1,
+      ease: "power2.inOut",
+    });
 
     // Animate timeline items on scroll
     const itemObserver = new IntersectionObserver(
@@ -82,6 +74,9 @@ export default function ExperienceTimeline() {
             const index = itemRefs.current.findIndex(
               (ref) => ref === entry.target
             );
+            const correspondingNode = nodeRefs.current[index];
+
+            // Animate timeline item
             gsap.fromTo(
               entry.target,
               {
@@ -95,6 +90,16 @@ export default function ExperienceTimeline() {
                 ease: "power2.out",
               }
             );
+
+            // Animate corresponding node icon at the same time
+            if (correspondingNode) {
+              gsap.to(correspondingNode, {
+                opacity: 1,
+                duration: 0.6,
+                ease: "power2.out",
+              });
+            }
+
             itemObserver.unobserve(entry.target);
           }
         });
@@ -107,7 +112,6 @@ export default function ExperienceTimeline() {
     });
 
     return () => {
-      observer.disconnect();
       itemObserver.disconnect();
     };
   }, []);
@@ -116,10 +120,11 @@ export default function ExperienceTimeline() {
     <div
       ref={timelineRef}
       className="w-full max-w-[1200px] mx-auto px-4 py-16 relative"
+      data-timeline-container
     >
       <div className="relative">
-        {/* Vertical timeline line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-400 h-full">
+        {/* Vertical timeline line - animated only */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full">
           <div
             ref={lineRef}
             className="absolute top-0 left-0 w-full bg-white h-0 transition-all"
@@ -144,7 +149,13 @@ export default function ExperienceTimeline() {
                 }`}
               >
                 {/* Timeline node */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
+                <div
+                  ref={(el) => {
+                    nodeRefs.current[index] = el;
+                  }}
+                  className="absolute left-1/2 transform -translate-x-1/2 z-10"
+                  style={{ opacity: 0 }}
+                >
                   <div className="w-4 h-4 bg-white rounded-full border-2 border-gray-400 flex items-center justify-center">
                     <Icon className="w-3 h-3 text-gray-400" />
                   </div>
