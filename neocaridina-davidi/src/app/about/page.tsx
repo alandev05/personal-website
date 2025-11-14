@@ -13,7 +13,7 @@ export default function AboutPage() {
           <div className="w-full md:w-1/2 mt-8">
             <div className="relative w-full aspect-[4/3] bg-gray-800 rounded-lg overflow-hidden scale-90">
               <Image
-                src="/me.JPG"
+                src="/me.jpg"
                 alt="Alan Nguyen"
                 fill
                 className="object-cover"
