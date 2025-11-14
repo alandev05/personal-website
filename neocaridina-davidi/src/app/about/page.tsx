@@ -76,7 +76,7 @@ export default function AboutPage() {
         {/* Longer text below */}
         <div>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            Although I started Computer Science in college, I only fell in love
+            I fell in love
             with coding earlier this year at my first hackathon - HackBrown. It
             showed me that there was so much that could be done, you only have
             to start.
