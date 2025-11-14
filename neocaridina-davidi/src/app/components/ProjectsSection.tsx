@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,7 +17,49 @@ export default function ProjectsSection({
   onClose,
   onProjectClick,
 }: ProjectsSectionProps) {
-  const projects = [
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Desktop order: feelcast, capitalx, discer.io, donor-uplift, pparent
+  const desktopProjects = [
+    {
+      name: "feelcast",
+      path: "/projects/feelcast",
+      awards: "Finalist - Dream AI Hackathon by Founder Institute",
+    },
+    {
+      name: "capitalx",
+      path: "/projects/capitalX",
+      awards: "Best Use of Expo, Best Use of LLMs - HackPrinceton Spring 2025",
+    },
+    {
+      name: "discer.io",
+      path: "/projects/discerio",
+      awards:
+        "Best Use of Dedalus, YC x HackPrinceton Challenge - HackPrinceton Fall 2025",
+    },
+    {
+      name: "donor-uplift",
+      path: "/projects/donor-uplift",
+      awards: "1st Place - Highest Operating Surplus - SAS Hackathon 2025",
+    },
+    {
+      name: "pparent",
+      path: "/projects/planningparenthood",
+      awards: undefined,
+    },
+  ];
+
+  // Mobile order: discer.io, capitalx, donor-uplift, feelcast, pparent (current order)
+  const mobileProjects = [
     {
       name: "discer.io",
       path: "/projects/discerio",
@@ -45,6 +88,8 @@ export default function ProjectsSection({
     },
   ];
 
+  const projects = isMobile ? mobileProjects : desktopProjects;
+
   return (
     <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center justify-between relative px-4 min-h-[200px] md:min-h-0 z-50">
       {/* Mobile: Chevron Up */}
@@ -64,23 +109,23 @@ export default function ProjectsSection({
         <ChevronLeft className="w-6 h-6" />
       </button>
 
-      <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly flex-1 gap-4 md:gap-0 overflow-y-auto md:overflow-x-auto py-8 md:py-0 max-h-[70vh] md:max-h-none">
+      <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly flex-1 gap-4 md:gap-0 overflow-hidden py-8 md:py-0">
         {projects.map((project) => {
           // All projects same size on mobile, different on desktop
           let textSize = "text-base md:text-3xl"; // Default: feelcast, pparent
           if (project.name === "discer.io") {
-            textSize = "text-base md:text-4xl"; // Largest on desktop
+            textSize = "text-base md:text-[3rem]"; // Largest on desktop
           } else if (
             project.name === "capitalx" ||
             project.name === "donor-uplift"
           ) {
-            textSize = "text-base md:text-[2rem]"; // Medium on desktop
+            textSize = "text-base md:text-[2.5rem]"; // Slightly larger on desktop
           }
 
           return (
             <div
               key={project.name}
-              className="group relative flex flex-col items-center z-50"
+              className="group relative flex flex-col items-center z-50 w-auto"
             >
               {onProjectClick ? (
                 <button
