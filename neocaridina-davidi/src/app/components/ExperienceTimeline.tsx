@@ -1,0 +1,195 @@
+"use client";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { GraduationCap, Briefcase } from "lucide-react";
+
+type TimelineItem = {
+  id: string;
+  type: "education" | "experience";
+  title: string;
+  location: string;
+  date: string;
+  description: string | string[];
+  icon?: React.ReactNode;
+};
+
+const timelineItems: TimelineItem[] = [
+  {
+    id: "1",
+    type: "experience",
+    title: "Founding Engineer",
+    location: "Ceed AI, Cambridge, MA",
+    date: "September 2025 - Present",
+    description: [
+      "Building Ceed AI, a gamified CRM and social platform that unites individuals, non-profits, and brands by transforming one-time donations or volunteer efforts into sustained, purpose-driven communities.",
+      "Secured 2 signed Letters of Intent (LOI) with nonprofits, incoming pilot with MIT.",
+      "Backed by MIT Sandbox & MTC Startup Pass (Fall 2025).",
+    ],
+  },
+  {
+    id: "2",
+    type: "experience",
+    title: "Software Developer Intern",
+    location: "Peer Global Inc., Dover, DE",
+    date: "June 2025 - August 2025",
+    description: [
+      "Architected internal AI testing platform with React, Flask, and MongoDB, featuring 3-tier, multi-persona, modular real-time conversation model for app with over 1.2 million users.",
+      "Designed and deployed dynamic prompt engineering system with context depth scaling and placeholder substitution.",
+    ],
+  },
+  {
+    id: "3",
+    type: "education",
+    title: "Northeastern University",
+    location: "Boston, MA",
+    date: "Fall 2022 - May 2027",
+    description:
+      "Candidate for a Bachelor of Science in Computer Science. GPA: 3.6/4.0",
+  },
+];
+
+export default function ExperienceTimeline() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!timelineRef.current || !lineRef.current) return;
+
+    // Animate timeline line growth
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(lineRef.current, {
+              height: "100%",
+              duration: 1.5,
+              ease: "power2.out",
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(timelineRef.current);
+
+    // Animate timeline items on scroll
+    const itemObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = itemRefs.current.findIndex(
+              (ref) => ref === entry.target
+            );
+            gsap.fromTo(
+              entry.target,
+              {
+                opacity: 0,
+                x: index % 2 === 0 ? -50 : 50,
+              },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 0.6,
+                ease: "power2.out",
+              }
+            );
+            itemObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) itemObserver.observe(ref);
+    });
+
+    return () => {
+      observer.disconnect();
+      itemObserver.disconnect();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={timelineRef}
+      className="w-full max-w-[1200px] mx-auto px-4 py-16 relative"
+    >
+      <div className="relative">
+        {/* Vertical timeline line */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-400 h-full">
+          <div
+            ref={lineRef}
+            className="absolute top-0 left-0 w-full bg-white h-0 transition-all"
+            style={{ height: "0%" }}
+          />
+        </div>
+
+        {/* Timeline items */}
+        <div className="space-y-16">
+          {timelineItems.map((item, index) => {
+            const isLeft = index % 2 === 0;
+            const Icon = item.type === "education" ? GraduationCap : Briefcase;
+
+            return (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  itemRefs.current[index] = el;
+                }}
+                className={`relative flex items-center ${
+                  isLeft ? "justify-start" : "justify-end"
+                }`}
+              >
+                {/* Timeline node */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-2 border-gray-400 flex items-center justify-center">
+                    <Icon className="w-3 h-3 text-gray-400" />
+                  </div>
+                </div>
+
+                {/* Date */}
+                <div
+                  className={`absolute left-1/2 transform -translate-x-1/2 ${
+                    isLeft ? "translate-x-12" : "-translate-x-12"
+                  } text-raleway text-sm text-white/80 whitespace-nowrap`}
+                >
+                  {item.date}
+                </div>
+
+                {/* Content box */}
+                <div
+                  className={`w-full md:w-[45%] ${
+                    isLeft ? "pr-0 md:pr-[10%]" : "pl-0 md:pl-[10%]"
+                  }`}
+                >
+                  <div className="border border-gray-400 rounded-lg p-6 bg-black/50 backdrop-blur-sm">
+                    <h3 className="text-raleway text-xl font-bold text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-raleway text-sm text-white/80 mb-4">
+                      {item.location}
+                    </p>
+                    {Array.isArray(item.description) ? (
+                      <ul className="text-raleway text-base text-white/90 space-y-2 list-disc list-inside">
+                        {item.description.map((desc, i) => (
+                          <li key={i}>{desc}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-raleway text-base text-white/90">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}

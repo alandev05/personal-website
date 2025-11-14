@@ -81,7 +81,7 @@ export default function ProjectsSection({ onClose }: ProjectsSectionProps) {
               <Link
                 href={project.path}
                 className={`text-raleway ${textSize} text-white hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap relative z-50`}
-                onClick={(e) => {
+                onClick={() => {
                   const isMobile =
                     typeof window !== "undefined" && window.innerWidth < 768;
                   onClose(isMobile ? "up" : "left");

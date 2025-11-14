@@ -6,6 +6,7 @@ import { Linkedin, Github, Mail, Phone, FileUser } from "lucide-react";
 import Aquascape from "./components/Aquascape";
 import NameSection from "./components/NameSection";
 import ProjectsSection from "./components/ProjectsSection";
+import ExperienceTimeline from "./components/ExperienceTimeline";
 
 type IconKey = "Linkedin" | "Github" | "Mail" | "Phone" | "FileUser";
 
@@ -50,12 +51,14 @@ const ICON_LIST: IconItem[] = [
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showProjects, setShowProjects] = useState(false);
+  const [showExperience, setShowExperience] = useState(false);
   const nameRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const loadingNameRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingClick = () => {
     // Disable pointer events immediately to prevent blocking clicks
@@ -217,11 +220,14 @@ export default function Home() {
     // Wait for DOM to update, then animate
     setTimeout(() => {
       if (nameRef.current && projectsRef.current) {
-        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-        const slideDistance = isMobile 
+        const isMobile =
+          typeof window !== "undefined" && window.innerWidth < 768;
+        const slideDistance = isMobile
           ? 150 // Small distance on mobile - text disappears before reaching icons
-          : (typeof window !== 'undefined' ? window.innerWidth : 1200);
-        
+          : typeof window !== "undefined"
+          ? window.innerWidth
+          : 1200;
+
         // Set initial position for ProjectsSection
         if (isMobile) {
           gsap.set(projectsRef.current, { y: slideDistance, opacity: 0 });
@@ -237,13 +243,13 @@ export default function Home() {
             opacity: 0,
             duration: 0.4,
             ease: "power2.in",
-            onUpdate: function() {
+            onUpdate: function () {
               // Ensure opacity reaches 0 before text moves too far
               const progress = this.progress();
               if (progress > 0.5 && nameRef.current) {
                 gsap.set(nameRef.current, { opacity: 0 });
               }
-            }
+            },
           }).to(
             projectsRef.current,
             {
@@ -275,21 +281,30 @@ export default function Home() {
     }, 0);
   };
 
-  const handleProjectsClose = (direction: "left" | "right" | "up" | "down" = "left") => {
+  const handleProjectsClose = (
+    direction: "left" | "right" | "up" | "down" = "left"
+  ) => {
     if (nameRef.current && projectsRef.current) {
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-      const slideDistance = isMobile 
-        ? (typeof window !== 'undefined' ? window.innerHeight : 800)
-        : (typeof window !== 'undefined' ? window.innerWidth : 1200);
-      
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const slideDistance = isMobile
+        ? typeof window !== "undefined"
+          ? window.innerHeight
+          : 800
+        : typeof window !== "undefined"
+        ? window.innerWidth
+        : 1200;
+
       if (isMobile) {
         // Mobile: vertical animations with reduced distance
         const mobileSlideDistance = 150; // Small distance - text disappears before reaching icons
         // Map left/right to up/down for mobile
-        const mobileDirection = direction === "left" || direction === "right" 
-          ? (direction === "left" ? "up" : "down")
-          : direction;
-        
+        const mobileDirection =
+          direction === "left" || direction === "right"
+            ? direction === "left"
+              ? "up"
+              : "down"
+            : direction;
+
         if (mobileDirection === "up") {
           // Animate: slide ProjectsSection down, NameSection slides up (fades quickly to prevent overlap)
           gsap.set(nameRef.current, { y: -mobileSlideDistance, opacity: 0 });
@@ -307,13 +322,13 @@ export default function Home() {
             opacity: 0,
             duration: 0.4,
             ease: "power2.in",
-            onUpdate: function() {
+            onUpdate: function () {
               // Ensure opacity reaches 0 before text moves too far
               const progress = this.progress();
               if (progress > 0.5 && projectsRef.current) {
                 gsap.set(projectsRef.current, { opacity: 0 });
               }
-            }
+            },
           }).to(
             nameRef.current,
             {
@@ -341,13 +356,13 @@ export default function Home() {
             opacity: 0,
             duration: 0.4,
             ease: "power2.in",
-            onUpdate: function() {
+            onUpdate: function () {
               // Ensure opacity reaches 0 before text moves too far
               const progress = this.progress();
               if (progress > 0.5 && projectsRef.current) {
                 gsap.set(projectsRef.current, { opacity: 0 });
               }
-            }
+            },
           }).to(
             nameRef.current,
             {
@@ -430,90 +445,109 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      {/* Loading Screen */}
-      {isLoading && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black cursor-pointer"
-          onClick={handleLoadingClick}
-        >
+    <>
+      {/* Main centered content - always visible and centered */}
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        {/* Loading Screen */}
+        {isLoading && (
           <div
-            ref={loadingNameRef}
-            className="text-raleway text-2xl sm:text-3xl md:text-4xl text-white hover:opacity-80 transition-opacity px-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black cursor-pointer"
+            onClick={handleLoadingClick}
           >
-            alan nguyen
-          </div>
-        </div>
-      )}
-
-      {/* Main content - hidden during loading */}
-      <div ref={contentRef} className="relative w-full px-4" style={{ opacity: 0 }}>
-        <div ref={imageRef} className="w-full">
-          <Aquascape 
-            audioRef={audioRef} 
-            iconList={ICON_LIST}
-            iconLinks={ICON_LINKS}
-            getTarget={getTarget}
-          />
-        </div>
-      </div>
-
-      {/* Icons - shown on mobile, hidden on desktop */}
-      <div
-        className="flex md:hidden flex-row gap-3 mt-3 relative z-30"
-        style={{ opacity: 0 }}
-      >
-        {ICON_LIST.map(({ key, icon: Icon, color, size, ariaLabel }) => {
-          const link = ICON_LINKS[key];
-          return (
             <div
-              key={key}
-              className={`${color ?? "text-theme-gray"} ${
-                size ?? "w-4 h-4"
-              } hover:scale-110 transition-transform relative z-30`}
+              ref={loadingNameRef}
+              className="text-raleway text-2xl sm:text-3xl md:text-4xl text-white hover:opacity-80 transition-opacity px-4"
             >
-              <div className="group flex flex-col items-center">
-                <a
-                  href={link.href}
-                  target={getTarget(link.href)}
-                  rel={
-                    link.href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  // Only render download when provided
-                  download={link.download ?? undefined}
-                  aria-label={ariaLabel}
-                  className="relative z-30 pointer-events-auto"
-                >
-                  <Icon className="w-full h-full" />
-                </a>
-                <span className="mt-2 text-raleway text-xs text-theme-gray opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                  {ariaLabel}
-                </span>
-              </div>
+              alan nguyen
             </div>
-          );
-        })}
-      </div>
-
-      {/* Name section and Projects section container */}
-      <div className="mt-4 sm:mt-6 relative w-full max-w-[1200px] min-h-[48px] overflow-visible px-4">
-        {/* Name section */}
-        <div ref={nameRef} style={{ opacity: 0 }}>
-          <NameSection onProjectsClick={handleProjectsClick} />
-        </div>
-        {/* Projects section - positioned to the right, hidden initially */}
-        {showProjects && (
-          <div
-            ref={projectsRef}
-            className="absolute top-0 left-0 w-full z-50"
-            style={{ opacity: 0 }}
-          >
-            <ProjectsSection onClose={handleProjectsClose} />
           </div>
         )}
+
+        {/* Main content - hidden during loading */}
+        <div
+          ref={contentRef}
+          className="relative w-full px-4"
+          style={{ opacity: 0 }}
+        >
+          <div ref={imageRef} className="w-full">
+            <Aquascape
+              audioRef={audioRef}
+              iconList={ICON_LIST}
+              iconLinks={ICON_LINKS}
+              getTarget={getTarget}
+            />
+          </div>
+        </div>
+
+        {/* Icons - shown on mobile, hidden on desktop */}
+        <div
+          className="flex md:hidden flex-row gap-3 mt-3 relative z-30"
+          style={{ opacity: 0 }}
+        >
+          {ICON_LIST.map(({ key, icon: Icon, color, size, ariaLabel }) => {
+            const link = ICON_LINKS[key];
+            return (
+              <div
+                key={key}
+                className={`${color ?? "text-theme-gray"} ${
+                  size ?? "w-4 h-4"
+                } hover:scale-110 transition-transform relative z-30`}
+              >
+                <div className="group flex flex-col items-center">
+                  <a
+                    href={link.href}
+                    target={getTarget(link.href)}
+                    rel={
+                      link.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    // Only render download when provided
+                    download={link.download ?? undefined}
+                    aria-label={ariaLabel}
+                    className="relative z-30 pointer-events-auto"
+                  >
+                    <Icon className="w-full h-full" />
+                  </a>
+                  <span className="mt-2 text-raleway text-xs text-theme-gray opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {ariaLabel}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Name section and Projects section container */}
+        <div className="mt-4 sm:mt-6 relative w-full max-w-[1200px] min-h-[48px] overflow-visible px-4">
+          {/* Name section */}
+          <div ref={nameRef} style={{ opacity: 0 }}>
+            <NameSection
+              onProjectsClick={handleProjectsClick}
+              onExperienceClick={() => {
+                setShowExperience(true);
+              }}
+            />
+          </div>
+          {/* Projects section - positioned to the right, hidden initially */}
+          {showProjects && (
+            <div
+              ref={projectsRef}
+              className="absolute top-0 left-0 w-full z-50"
+              style={{ opacity: 0 }}
+            >
+              <ProjectsSection onClose={handleProjectsClose} />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {/* Experience Timeline - appears below, requires scrolling */}
+      {showExperience && (
+        <div ref={experienceRef} className="w-full -mt-50">
+          <ExperienceTimeline />
+        </div>
+      )}
+    </>
   );
 }
