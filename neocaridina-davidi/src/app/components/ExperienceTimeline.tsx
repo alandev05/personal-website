@@ -22,7 +22,7 @@ const timelineItems: TimelineItem[] = [
     date: "September 2025 - Present",
     description: [
       "Building Ceed AI, a gamified CRM and social platform that unites individuals, non-profits, and brands by transforming one-time donations or volunteer efforts into sustained, purpose-driven communities.",
-      "Secured 2 signed Letters of Intent (LOI) with nonprofits, incoming pilot with MIT.",
+      "Secured 2 signed Letters of Intent (LOI) with nonprofits, with an incoming pilot with MIT.",
       "Backed by MIT Sandbox & MTC Startup Pass (Fall 2025).",
     ],
   },
@@ -33,7 +33,7 @@ const timelineItems: TimelineItem[] = [
     location: "Peer Global Inc, Dover, DE",
     date: "June 2025 - August 2025",
     description: [
-      "Architected internal AI testing platform with React, Flask, and MongoDB, featuring 3-tier, multi-persona, modular real-time conversation model for app with over 1.2 million users.",
+      "Architected internal AI testing platform with React, Flask, and MongoDB, featuring a 3-tier, multi-persona, modular real-time conversation model for an app with over 1.2 million users.",
       "Designed and deployed dynamic prompt engineering system with context depth scaling and placeholder substitution.",
     ],
   },

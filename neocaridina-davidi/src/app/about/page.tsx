@@ -28,8 +28,8 @@ export default function AboutPage() {
               Hi! I&apos;m Alan, and I love building tech that makes an impact.
             </p>
             <p className="text-raleway text-base leading-relaxed">
-              I&apos;m currently a third year Computer Science at Northeastern,
-              and I&apos;m building Ceed AI!
+              I&apos;m currently a third-year Computer Science student at
+              Northeastern, and I&apos;m building Ceed AI!
             </p>
 
             {/* Links section */}
@@ -76,14 +76,13 @@ export default function AboutPage() {
         {/* Longer text below */}
         <div>
           <p className="text-raleway text-base leading-relaxed mb-4">
-            I fell in love
-            with coding earlier this year at my first hackathon - HackBrown. It
-            showed me that there was so much that could be done, you only have
-            to start.
+            I fell in love with coding earlier this year at my first hackathon -
+            HackBrown. It showed me that there was so much that could be done,
+            you only have to start.
           </p>
           <p className="text-raleway text-base leading-relaxed mb-4">
             From there, I&apos;ve been at 100%, working on diverse projects
-            ranging from AI-powered apps to full-stack web platorms. I love the
+            ranging from AI-powered apps to full-stack web platforms. I love
             solving all of the complex problems that come with turning ideas
             into functional, beautiful solutions.
           </p>
