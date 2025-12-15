@@ -17,12 +17,12 @@ const timelineItems: TimelineItem[] = [
   {
     id: "1",
     type: "experience",
-    title: "Founding Engineer",
+    title: "CTO",
     location: "Ceed AI, Cambridge, MA",
     date: "September 2025 - Present",
     description: [
-      "Building Ceed AI, a gamified CRM and social platform that unites individuals, non-profits, and brands by transforming one-time donations or volunteer efforts into sustained, purpose-driven communities.",
-      "Secured 2 signed Letters of Intent (LOI) with nonprofits, with an incoming pilot with MIT.",
+      "Building Ceed CRM a prescriptive CRM driving smarter nonprofit impact",
+      "Secured 3 LOIs with nonprofits, piloting with MIT Annual Giving fund",
       "Backed by MIT Sandbox & MTC Startup Pass (Fall 2025).",
     ],
   },
