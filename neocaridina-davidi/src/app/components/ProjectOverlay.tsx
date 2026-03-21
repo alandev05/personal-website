@@ -318,6 +318,8 @@ export default function ProjectOverlay({
                       ? "donor-uplift"
                       : activeProject.name === "feelcast"
                       ? "feelcast"
+                      : activeProject.name === "remora"
+                      ? "remora"
                       : activeProject.name === "pparent"
                       ? "planningparenthood"
                       : activeProject.name.toLowerCase().replace(/\s+/g, "")

@@ -47,6 +47,11 @@ export default function ProjectsSection({
         "Best Use of Dedalus, YC x HackPrinceton Challenge - HackPrinceton Fall 2025",
     },
     {
+      name: "remora",
+      path: "/projects/remora",
+      awards: "1st Place - Google DeepMind x Breakthrough Ventures Hackathon at MIT",
+    },
+    {
       name: "donor-uplift",
       path: "/projects/donor-uplift",
       awards: "1st Place - Highest Operating Surplus - SAS Hackathon 2025",
@@ -58,7 +63,7 @@ export default function ProjectsSection({
     },
   ];
 
-  // Mobile order: discer.io, capitalx, donor-uplift, feelcast, pparent (current order)
+  // Mobile order: discer.io, capitalx, remora, feelcast, donor-uplift, pparent
   const mobileProjects = [
     {
       name: "discer.io",
@@ -72,14 +77,19 @@ export default function ProjectsSection({
       awards: "Best Use of Expo, Best Use of LLMs - HackPrinceton Spring 2025",
     },
     {
-      name: "donor-uplift",
-      path: "/projects/donor-uplift",
-      awards: "1st Place - Highest Operating Surplus - SAS Hackathon 2025",
+      name: "remora",
+      path: "/projects/remora",
+      awards: "1st Place - Google DeepMind x Breakthrough Ventures Hackathon at MIT",
     },
     {
       name: "feelcast",
       path: "/projects/feelcast",
       awards: "Finalist - Dream AI Hackathon by Founder Institute",
+    },
+    {
+      name: "donor-uplift",
+      path: "/projects/donor-uplift",
+      awards: "1st Place - Highest Operating Surplus - SAS Hackathon 2025",
     },
     {
       name: "pparent",
@@ -117,7 +127,8 @@ export default function ProjectsSection({
             textSize = "text-base md:text-[3rem]"; // Largest on desktop
           } else if (
             project.name === "capitalx" ||
-            project.name === "donor-uplift"
+            project.name === "donor-uplift" ||
+            project.name === "remora"
           ) {
             textSize = "text-base md:text-[2.5rem]"; // Slightly larger on desktop
           }

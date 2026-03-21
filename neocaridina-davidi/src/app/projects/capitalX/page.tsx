@@ -32,7 +32,7 @@ const mediaItems: MediaItem[] = [
 ];
 
 const contributors = [
-  { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alan-nguyen" },
+  { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
   { name: "Lucas Kim", linkedin: "https://www.linkedin.com/in/lucaskim65/" },
   {
     name: "Aarush Japtap",

@@ -25,7 +25,7 @@ const mediaItems: MediaItem[] = [
 ];
 
 const contributors = [
-  { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alan-nguyen" },
+  { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
   { name: "Vivian Zou", linkedin: "https://www.linkedin.com/in/vivianzou1/" },
   {
     name: "Sydney Du",

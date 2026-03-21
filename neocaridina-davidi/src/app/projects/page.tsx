@@ -32,12 +32,13 @@ const projects: Project[] = [
     path: "/projects/capitalX",
   },
   {
-    id: "donor-uplift",
-    name: "Donor Uplift",
-    tagline: "",
-    description: "",
-    image: "/du.png",
-    path: "/projects/donor-uplift",
+    id: "remora",
+    name: "Remora",
+    tagline: "The solution to technical debt",
+    description:
+      "A codebase-driven learning tool that turns any GitHub repository into a structured and interactive curriculum.",
+    image: "/remora.png",
+    path: "/projects/remora",
   },
   {
     id: "feelcast",
@@ -47,6 +48,14 @@ const projects: Project[] = [
       "An intelligent employee wellness platform that transforms how healthcare organizations monitor staff wellbeing.",
     image: "/feelcast.png",
     path: "/projects/feelcast",
+  },
+  {
+    id: "donor-uplift",
+    name: "Donor Uplift",
+    tagline: "",
+    description: "",
+    image: "/du.png",
+    path: "/projects/donor-uplift",
   },
   {
     id: "planningparenthood",

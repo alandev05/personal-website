@@ -220,6 +220,10 @@ export default function Home() {
   }, [isLoading]);
 
   const handleProjectsClick = () => {
+    // Close experience if open
+    if (showExperience) {
+      setShowExperience(false);
+    }
     setShowProjects(true);
     // Wait for DOM to update, then animate
     setTimeout(() => {
@@ -601,7 +605,21 @@ export default function Home() {
                   // Close experience with reverse animation
                   handleExperienceClose();
                 } else {
+                  // Close projects if open
+                  if (showProjects) {
+                    setShowProjects(false);
+                    if (nameRef.current) {
+                      gsap.set(nameRef.current, { x: 0, y: 0, opacity: 1 });
+                    }
+                  }
                   setShowExperience(true);
+                  // Scroll to experience section after it renders
+                  setTimeout(() => {
+                    experienceRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }, 100);
                 }
               }}
             />
@@ -626,7 +644,7 @@ export default function Home() {
 
       {/* Experience Timeline - appears below, requires scrolling */}
       {showExperience && (
-        <div ref={experienceRef} className="w-full -mt-50">
+        <div ref={experienceRef} className="w-full -mt-50" style={{ scrollMarginTop: "2rem" }}>
           <div ref={experienceTimelineRef}>
             <ExperienceTimeline />
           </div>
