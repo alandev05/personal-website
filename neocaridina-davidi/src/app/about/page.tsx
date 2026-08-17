@@ -58,7 +58,7 @@ export default function AboutPage() {
                 Resume
               </a>
               <a
-                href="mailto:nguyen.ala@northeastern.edu"
+                href="mailto:alandnguyen1@gmail.com"
                 className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
               >
                 Email
