@@ -31,45 +31,6 @@ export default function AboutPage() {
               I&apos;m currently a third-year Computer Science student at
               Northeastern, and I&apos;m building Ceed AI!
             </p>
-
-            {/* Links section */}
-            <div className="flex flex-wrap gap-4 mt-4">
-              <a
-                href="https://www.linkedin.com/in/alandoannguyen/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/alandev05"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
-              >
-                GitHub
-              </a>
-              <a
-                href="/files/alan_nguyen_resume.pdf"
-                download="alan_nguyen_resume.pdf"
-                className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
-              >
-                Resume
-              </a>
-              <a
-                href="mailto:alandnguyen1@gmail.com"
-                className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
-              >
-                Email
-              </a>
-              <a
-                href="tel:+15086854361"
-                className="text-raleway text-base text-white hover:opacity-80 transition-opacity underline"
-              >
-                Phone
-              </a>
-            </div>
           </div>
         </div>
 

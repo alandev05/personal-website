@@ -30,7 +30,7 @@ const timelineItems: TimelineItem[] = [
     date: "September 2025 - Present",
     description: [
       "Building an AI-native, agentic CRM for nonprofits that reduces manual work by 60% and 2.5x donor retention",
-      "Converted 5 pilot partners into paying customers (~$11K ARR); 14 LOIs in pipeline",
+      "Converted 5 pilot partners into paying customers (~$11K ARR); 14 LOIs in pipeline including a deal to become preferred platform for 200+ nonprofits via a Southeast Asian consulting firm",
       "Backed by MIT Sandbox, MTC Startup Pass (Fall 2025), MIT Fuse (Spring 2026), PKG IDEAS",
     ],
   },
@@ -42,8 +42,8 @@ const timelineItems: TimelineItem[] = [
     date: "November 2025 - December 2025",
     description: [
       "Selected as 1 of 20 founders globally (2% acceptance) for Break In, a 3-week AI builder residency",
-      "Received product and GTM mentorship from Jared Friedman (YC Partner), Laura Modiano (Head of Startups, OpenAI), and more",
-      "Engineered an agentic AI co-pilot for Ceed CRM using the Dedalus SDK, orchestrating 17 purpose-built tools",
+      "Received product and GTM mentorship from Jared Friedman (YC Partner), Laura Modiano (Head of Startups, OpenAI), co-founders of HF0, and investors from Y Combinator, Saga Ventures and more",
+      "Engineered an agentic AI co-pilot for Ceed CRM using the Dedalus SDK, orchestrating 17 purpose-built tools to automate nonprofit donor engagement workflows, saving nonprofits 10+ hours of time per week",
     ],
   },
   {
@@ -53,7 +53,7 @@ const timelineItems: TimelineItem[] = [
     location: "Peer Global Inc., Newport Beach, CA",
     date: "June 2025 - August 2025",
     description: [
-      "Architected agentic chat workflows and testing platform with React, Flask, and MongoDB for an app with over 1.2 million users",
+      "Architected agentic chat workflows and testing platform with React, Flask, and MongoDB, featuring a 3-tier, multi-persona, modular real-time conversation model for an app with over 1.2 million users",
       "Designed and deployed dynamic prompt engineering system with context depth scaling and placeholder matching",
     ],
   },
