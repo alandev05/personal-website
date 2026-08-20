@@ -33,7 +33,6 @@ const timelineItems: TimelineItem[] = [
     date: "September 2025 - Present",
     description: [
       "Building an AI-native, agentic CRM for nonprofits that automates donor engagement workflows, reducing manual operations by 60% and driving 2.5x donor retention",
-      "Converted 5 pilot partners into paying customers (~$11K ARR) through hands-on customer discovery",
     ],
   },
   {
