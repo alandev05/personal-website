@@ -33,6 +33,7 @@ const contributors = [
   },
   {
     name: "Meryl Zhang",
+    linkedin: "https://www.linkedin.com/in/merylmzhang/",
   },
 ];
 

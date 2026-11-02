@@ -44,8 +44,8 @@ export const PROJECT_DATA: Record<string, ProjectData> = {
     ],
     contributors: [
       { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
-      { name: "Eason Pan" },
-      { name: "Sissi Zhao" },
+      { name: "Eason Pan", linkedin: "https://www.linkedin.com/in/eason-pan-048128260/" },
+      { name: "Sissi Zhao", linkedin: "https://www.linkedin.com/in/sissi-zhao-9bb267393/" },
     ],
     links: {
       github: "https://github.com/alandev05/Lattice",
@@ -177,7 +177,7 @@ export const PROJECT_DATA: Record<string, ProjectData> = {
       { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
       { name: "Vivian Zou", linkedin: "https://www.linkedin.com/in/vivianzou1/" },
       { name: "Sydney Du", linkedin: "https://www.linkedin.com/in/sydney-du-1ab7b635b/" },
-      { name: "Meryl Zhang" },
+      { name: "Meryl Zhang", linkedin: "https://www.linkedin.com/in/merylmzhang/" },
     ],
     links: {
       github: "https://github.com/alandev05/PlanningParenthood",

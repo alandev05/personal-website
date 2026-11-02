@@ -37,8 +37,8 @@ const mediaItems: MediaItem[] = [
 
 const contributors: { name: string; linkedin?: string }[] = [
   { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
-  { name: "Eason Pan" },
-  { name: "Sissi Zhao" },
+  { name: "Eason Pan", linkedin: "https://www.linkedin.com/in/eason-pan-048128260/" },
+  { name: "Sissi Zhao", linkedin: "https://www.linkedin.com/in/sissi-zhao-9bb267393/" },
 ];
 
 export default function LatticePage() {
