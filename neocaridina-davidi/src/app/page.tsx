@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import type { LucideIcon } from "lucide-react";
-import { Linkedin, Github, Mail, Phone, FileUser } from "lucide-react";
+import { Linkedin, Github, Mail } from "lucide-react";
 import Aquascape from "./components/Aquascape";
 import NameSection from "./components/NameSection";
 import ProjectsSection from "./components/ProjectsSection";
@@ -10,7 +10,7 @@ import ExperienceTimeline from "./components/ExperienceTimeline";
 import ProjectOverlay from "./components/ProjectOverlay";
 import { PROJECT_DATA } from "./data/projects";
 
-type IconKey = "Linkedin" | "Github" | "Mail" | "Phone" | "FileUser";
+type IconKey = "Linkedin" | "Github" | "Mail";
 
 type IconItem = {
   key: IconKey;
@@ -24,29 +24,17 @@ const ICON_LINKS: Record<IconKey, { href: string; download?: string }> = {
   Linkedin: { href: "https://www.linkedin.com/in/alandoannguyen/" },
   Github: { href: "https://github.com/alandev05" },
   Mail: { href: "mailto:nguyen.ala@northeastern.edu" },
-  Phone: { href: "tel:+15086854361" },
-  FileUser: {
-    href: "/files/alan_nguyen_resume.pdf",
-    download: "alan_nguyen_resume.pdf",
-  },
 };
 
 // Easy-to-modify icon list (style per icon if you want)
 const ICON_LIST: IconItem[] = [
   { key: "Linkedin", icon: Linkedin, ariaLabel: "my linkedin" },
   { key: "Github", icon: Github, ariaLabel: "my github" },
-  { key: "FileUser", icon: FileUser, ariaLabel: "download resume" },
   {
     key: "Mail",
     icon: Mail,
     color: "text-theme-gray",
     ariaLabel: "send email",
-  },
-  {
-    key: "Phone",
-    icon: Phone,
-    color: "text-theme-gray",
-    ariaLabel: "call me",
   },
 ];
 

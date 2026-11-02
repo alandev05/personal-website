@@ -28,8 +28,13 @@ export default function ProjectsSection({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Desktop order: feelcast, capitalx, discer.io, donor-uplift, pparent
+  // Desktop order: lattice, feelcast, capitalx, discer.io, donor-uplift, pparent
   const desktopProjects = [
+    {
+      name: "lattice",
+      path: "/projects/lattice",
+      awards: "Winner, College Hack #3 - DS+X Hackathon 2026",
+    },
     {
       name: "feelcast",
       path: "/projects/feelcast",
@@ -63,8 +68,13 @@ export default function ProjectsSection({
     },
   ];
 
-  // Mobile order: discer.io, capitalx, remora, feelcast, donor-uplift, pparent
+  // Mobile order: lattice, discer.io, capitalx, remora, feelcast, donor-uplift, pparent
   const mobileProjects = [
+    {
+      name: "lattice",
+      path: "/projects/lattice",
+      awards: "Winner, College Hack #3 - DS+X Hackathon 2026",
+    },
     {
       name: "discer.io",
       path: "/projects/discerio",
@@ -128,7 +138,8 @@ export default function ProjectsSection({
           } else if (
             project.name === "capitalx" ||
             project.name === "donor-uplift" ||
-            project.name === "remora"
+            project.name === "remora" ||
+            project.name === "lattice"
           ) {
             textSize = "text-base md:text-[2.5rem]"; // Slightly larger on desktop
           }

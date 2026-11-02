@@ -14,6 +14,15 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: "lattice",
+    name: "Lattice",
+    tagline: "Grammarly for your reasoning",
+    description:
+      "A Chrome extension that catches math and logic mistakes as you write in Google Docs, Overleaf, and any text field.",
+    image: "/lattice.png",
+    path: "/projects/lattice",
+  },
+  {
     id: "discerio",
     name: "Discer.io",
     tagline: "It's like Scratch, but for AI agents",

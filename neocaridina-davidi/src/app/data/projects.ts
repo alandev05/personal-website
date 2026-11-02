@@ -20,6 +20,39 @@ export type ProjectData = {
 };
 
 export const PROJECT_DATA: Record<string, ProjectData> = {
+  lattice: {
+    name: "lattice",
+    tagline: "Grammarly for your reasoning",
+    description:
+      "A Chrome extension that catches math and logic mistakes as you write in Google Docs, Overleaf, and any text field. It treats each document like a program, tracing every claim's dependencies so it can flag errors, the statements built on them, and walk you back to the root cause with hints instead of answers.",
+    mediaItems: [
+      {
+        type: "video",
+        src: "https://www.youtube.com/embed/LimHm5GBM9k",
+        title: "Lattice demo video",
+      },
+      {
+        type: "image",
+        src: "/lattice.png",
+        alt: "Lattice flagging mistakes in a homework document",
+      },
+      {
+        type: "image",
+        src: "/lattice2.png",
+        alt: "Lattice explaining a mistake that follows from an earlier error",
+      },
+    ],
+    contributors: [
+      { name: "Alan Nguyen", linkedin: "https://www.linkedin.com/in/alandoannguyen" },
+      { name: "Eason Pan" },
+      { name: "Sissi Zhao" },
+    ],
+    links: {
+      github: "https://github.com/alandev05/Lattice",
+      demo: "https://devpost.com/software/lattice-yonz76",
+    },
+    awards: "Winner, College Hack #3 - DS+X Hackathon 2026",
+  },
   "discer.io": {
     name: "discer.io",
     tagline: "It's like Scratch, but for AI agents",
